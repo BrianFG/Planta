@@ -13,13 +13,15 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: admin
-  password: admin
-  socket: /var/run/mysqld/mysqld.sock
+  username: root
+  password: MRFfbl24584
+  url: mysql://node11099-pruebaruby.jl.serv.net.mx/Planta_development
 
 development:
   <<: *default
-  database: Planta_development
+  url: mysql://node11099-pruebaruby.jl.serv.net.mx/Planta_development
+  username: root
+  password: MRFfbl24584
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
