@@ -1,0 +1,47 @@
+<div class="container">
+<h1 class="center">Ventas del día</h1>
+
+<div class="col-sm-8 col-sm-offset-2 box">
+
+
+<%= form_for(@day) do |day| %>
+<div class="col-sm-12 center margin-top-bottom">
+<%= day.label :fecha %>
+<%= day.date_field :fecha, value: DateTime.now.strftime("%Y-%m-%d")%>
+</div>
+<div class="col-sm-12">
+
+<div class="row">
+	<div class="col-sm-2">Cantidad</div>
+	<div class="col-sm-2">Precio</div>
+	<div class="col-sm-2">Envio</div>
+	<div class="col-sm-2">Hora</div>
+	<div class="col-sm-3">Tipo</div>
+</div>
+
+<%= day.fields_for :sales do |sale| %>
+	<div class="row">
+	    <div class="form-group col-sm-2">	
+	    <%= sale.text_field :cantidad, step: 1, value: 1, class: "form-control" %>
+	    </div>
+	    <div class="form-group col-sm-2">
+	    <%= sale.number_field :precio, step: 0.1, value: 9, class: "form-control" %>
+	    </div>
+	    <div class="col-sm-2">
+	    <%= sale.number_field :envio, step: 0.1, value: 0, class: "form-control" %>
+	    </div>
+	    <div class="col-sm-2">
+	    <%= sale.time_field :hora, value: "09:30", class: "form-control" %>
+	    </div>
+	    <div class="col-sm-3">
+	    <%= sale.collection_select :container_id, Container.all, :id, :nombre, class: "form-control"  %>
+	    </div>
+    </div>
+<% end %>
+
+  <%= day.submit "Guardar", class: "btn btn-info" %>
+<% end %>
+
+</div>
+</div>
+</div>

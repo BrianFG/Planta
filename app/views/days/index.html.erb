@@ -1,0 +1,61 @@
+<div class="container">
+<h1>Days#index</h1>
+<p>Find me in app/views/days/index.html.erb</p>
+<div class="col-sm-12 box">
+
+<div class="row th">
+	<div class="col-sm-2">Fecha</div>
+	<div class="col-sm-6">
+		<div class="col-sm-12 center">Productos vendidos</div>
+		<div class="col-sm-3">20L</div>
+		<div class="col-sm-3">11L</div>
+		<div class="col-sm-3">Otros</div>
+		<div class="col-sm-3">Total</div>
+	</div>
+	<div class="col-sm-3 center">
+		<div class="col-sm-12">Total</div>
+		<div class="col-sm-4">Venta</div>
+		<div class="col-sm-4">Envio</div>
+		<div class="col-sm-4">Total</div>
+	</div>
+	<div class="col-sm-1"></div>
+</div>
+<% @days.each do |d|%>
+<div class="row">
+<div class="col-sm-2"><%= d.fecha%></div>
+<div class="col-sm-6">
+<div class="col-sm-3"><%= d.sales.where(container_id: 1).sum(:cantidad)%></div>
+<div class="col-sm-3"><%= d.sales.where(container_id: 2).sum(:cantidad)%></div>
+<div class="col-sm-3"><%= d.sales.where("container_id != ? and container_id != ?", 1, 2 ).sum(:cantidad)%></div>
+<div class="col-sm-3"><%= d.sales.sum(:cantidad)%></div>
+</div>
+<div class="col-sm-3">
+<div class="col-sm-4"><%= d.sales.sum("cantidad * precio") %></div>
+<div class="col-sm-4"><%= d.sales.sum("cantidad * envio") %></div>
+<div class="col-sm-4"><%= d.sales.sum("cantidad * (precio+envio)") %></div>
+</div>
+<div class="col-sm-1"><%= link_to "Detalle", day_path(d)%></div>
+</div>
+
+<% end %>
+
+<div class="row margin-top-bottom">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-6">
+		<div class="col-sm-3"><%=@g20%></div>
+		<div class="col-sm-3"><%=@g11%></div>
+		<div class="col-sm-3"><%=@otros%></div>
+		<div class="col-sm-3"><%=@g20 + @g11 + @otros%></div>
+	</div>
+	<div class="col-sm-3 ">
+		<div class="col-sm-4"><%=@total%></div>
+		<div class="col-sm-4"><%=@envio%></div>
+		<div class="col-sm-4"><%=@total + @envio %></div>
+	</div>
+	<div class="col-sm-1"></div>
+</div>
+
+
+</div>
+
+</div>

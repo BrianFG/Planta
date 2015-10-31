@@ -1,0 +1,36 @@
+<div class="container">
+
+<h1>Venta del día <%= @day.fecha.strftime("%w-%B-%d") %></h1>
+<%=l(@day.fecha, :format => '%d %B %Y')%>
+<div class="col-sm-12 box">
+ 
+
+<div class="row th">
+<div class="col-sm-2">Producto</div>
+<div class="col-sm-2">Cantidad</div>
+<div class="col-sm-2">Precio</div>
+<div class="col-sm-2">Envio</div>
+<div class="col-sm-2">Total</div>
+<div class="col-sm-2">Hora</div>
+</div>
+<% @sales.each do |s|%>
+<div class="row">
+<div class="col-sm-2"><%=s.container.nombre%></div>
+<div class="col-sm-2"><%=s.cantidad%></div>
+<div class="col-sm-2"><%=s.precio%></div>
+<div class="col-sm-2"><%=s.envio%></div>
+<div class="col-sm-2"><%=(s.precio+s.envio)*s.cantidad%></div>
+<div class="col-sm-2"><%=s.hora.strftime("%H:%M")%></div>
+</div>
+<%end%>
+
+<div class="row margin-top-bottom">
+<div class="col-sm-2"></div>
+<div class="col-sm-2"><%=@sales.sum(:cantidad)%></div>
+<div class="col-sm-2"></div>
+<div class="col-sm-2"></div>
+<div class="col-sm-2"><%=@sales.sum("(precio+envio)*cantidad")%></div>
+<div class="col-sm-2"></div>
+</div>
+</div>
+</div>

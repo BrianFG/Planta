@@ -1,0 +1,38 @@
+
+
+<div class="container">
+<div class="th margin-top-bottom">
+<h1>Calendario de Ventas</h1>
+</div>
+<div class="col-sm-12 box">
+
+<div id="calendar"></div>
+</div>
+</div>
+
+<%=params%>
+
+<form action="calendar" method="get">
+<input type="text" name="a[]">
+<input type="text" name="a[]">
+<input type="submit" value="subir">
+
+</form>
+
+<script type="text/javascript">
+$().ready(function (){
+	$('#calendar').fullCalendar({
+		eventAfterRender: function(event, element, view) {
+                      $(element).css('padding','6px');
+                      $(element).css('font-size','11px');
+                    },
+
+    eventSources: [
+        {
+            url: 'calendar/events.json'
+
+        }
+    ]
+});
+});
+</script>
